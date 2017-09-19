@@ -1,0 +1,20 @@
+.Header {
+  height: 9rem;
+  padding: 1em;
+  color: #fff;
+  background-color: #3b59d8;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  font-size: 2em;
+}
+
+.Header span:first-child {
+  float: left;
+}
+.Header span:last-child {
+  float: right;
+}
+
+.Header span:hover {
+  cursor: pointer;
+}

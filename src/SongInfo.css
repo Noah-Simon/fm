@@ -1,0 +1,19 @@
+.SongInfo img {
+  box-sizing: border-box;
+  width: 50%;
+  height: 50%;
+  margin-top: -25%;
+  border-radius: 50%;
+  border: 15px solid #fff;
+  box-shadow: 0 0 40px 0 #dee4f6;
+}
+
+.SongInfo .title {
+  margin: 1em 0 1em;
+  color: #3b69b8;
+}
+
+.SongInfo .artist {
+  margin-bottom: 2em;
+  color: #dee4f6;
+}

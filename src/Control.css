@@ -1,0 +1,21 @@
+.Control {
+  padding: 20px 0;
+  color: #6e92e8;
+  font-size: 1.5em;
+}
+
+.Control .icon-play, 
+.Control .icon-pause {
+  color: #3b69d8;
+  font-size: 2em;
+  margin: 0 1em;
+}
+
+.Control span {
+  opacity: .7;
+}
+
+.Control span:hover {
+  cursor: pointer;
+  opacity: 1.0
+}

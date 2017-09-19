@@ -1,0 +1,44 @@
+.PlayDetail {
+  color: #6e92eb
+}
+.PlayTime {
+  padding: 0 1em .5em;
+  overflow: hidden;
+  color: #dee4f6;
+}
+.PlayTime .current {
+  float: left;
+}
+
+.PlayTime .duration {
+  float: right;
+}
+
+.durationBar {
+  height: 6px;
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: #dee4f6;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.progressBar {
+  height: 6px;
+  background-image: linear-gradient(90deg, #6e92eb, #3b69d8);
+  border-radius: 3px;
+}
+
+.PlayDetail .container {
+  height: 3rem;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.PlayDetail .lyric {
+  position: relative;
+}
+.PlayDetail .lyric li {
+  font-size: 1.2rem;
+  height: 1.5rem;
+}

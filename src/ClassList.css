@@ -1,0 +1,20 @@
+.ClassList {
+  color: #6e92eb;
+  padding: 1em 0;
+}
+
+.ClassList li:hover {
+  color: #3b69d8;
+  cursor: pointer;
+}
+
+.ClassList >li {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid;
+  cursor: pointer;
+}
+.ClassList >li:hover {
+  font-size: 1.2em;
+}
