@@ -1,5 +1,5 @@
 .Header {
-  height: 9rem;
+  height: 8rem;
   padding: 1em;
   color: #fff;
   background-color: #3b59d8;
@@ -11,10 +11,15 @@
 .Header span:first-child {
   float: left;
 }
-.Header span:last-child {
+.Header span:nth-child(2) {
   float: right;
 }
 
 .Header span:hover {
   cursor: pointer;
+}
+
+.Header div {
+  clear: both;
+  font-size: .8em;
 }

@@ -9,10 +9,11 @@ ul {
 }
 .App {
   max-width: 414px;
-  margin: 1em auto 0;
+  min-height: 90vh;
+  margin: 10px auto 0;
   text-align: center;
   border-radius: 5px;
-  box-shadow: 0 0 10px 0 #6e92eb;
+  box-shadow: 0 0 10px 0 #6D91EB;
   background-color: #fff;
 }
 
@@ -28,11 +29,3 @@ ul {
   color: white;
 }
 
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}

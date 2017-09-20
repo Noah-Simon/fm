@@ -50,13 +50,14 @@ class App extends Component {
     const playDetail = (this.state.currentShow === 'MainInterface' ) ?
      <PlayDetail music={this.music}  lyric={this.state.lrc} /> 
      : null   //为什么这样不行？
-    const control = (this.state.currentShow === 'MainInterface') ? 
+    const control = (this.state.currentShow !== 'ClassList') ? 
      <Control play={this.play} pause={this.pause} playNext={this.playNext} isPlaying={this.state.isPlaying} />
      : null
 
     return (
       <div className='App'>
-        <Header currentShow={this.state.currentShow} onSetCurrentShow={this.setCurrenShow} />
+        <Header currentShow={this.state.currentShow} onSetCurrentShow={this.setCurrenShow}
+        currentSongInfo={this.state.currentSongInfo} />
         {classList}
         {songInfo}
         <PlayDetail music={this.music}  lyric={this.state.lrc} currentShow={this.state.currentShow}/> 
@@ -74,10 +75,9 @@ class App extends Component {
     })
   }
   
-  setCurrenShow() {
+  setCurrenShow(str) {
     this.setState(
-      this.state.currentShow === 'ClassList' ? {currentShow: 'MainInterface'} :
-      {currentShow: 'ClassList'}
+      {currentShow: str}
     )
   }
 
@@ -118,7 +118,6 @@ class App extends Component {
   setSonglrc(songSid) {
     let p = getUrl(LRCS_URL + songSid)
     p.then((data) => {
-      console.log(typeof data)
       this.setState({
         lrc: JSON.parse(data).lyric
       })

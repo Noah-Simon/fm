@@ -4,7 +4,7 @@ export default function getUrl(url) {
       xhr.open('GET', url, true)
       xhr.onload = function() {
           if (xhr.status===200 || xhr.status===304) {
-            console.log(JSON.parse(xhr.responseText))
+            //console.log(JSON.parse(xhr.responseText))
               resolve(xhr.responseText)
           } else {
               reject(new Error(xhr.statusText))

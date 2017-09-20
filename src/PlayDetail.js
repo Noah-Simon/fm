@@ -67,11 +67,17 @@ export default class PlayDetail extends Component {
 
   slideLyric() {
     let arr = this.handleLyric(this.props.lyric)
+    const ulElmt =  this.refs.lyric === undefined ? undefined : this.refs.lyric.childNodes
     for (var i = 0, l = arr.length; i < l; i++) {
+      let prevNum = i > 0 ? i - 1: i
       if (this.props.music.currentTime > arr[i].time - 0.50) {
         this.setState({
-          lyricOffsetTop: i * (-1.5) + 'rem'
+          lyricOffsetTop: 1.5 + i * (-1.5) + 'rem'
         })
+        if (ulElmt) {
+          ulElmt[i].classList.add('target')
+          ulElmt[prevNum].classList.remove('target')
+        }
       }
     }
   }
@@ -81,13 +87,14 @@ export default class PlayDetail extends Component {
     const lyricLiArr = lyricArr.map((item, index) => {
       return <li key={'line' + index}>{item.text}</li>
     })
-    if (this.props.currentShow !== 'MainInterface') {
+    if (this.props.currentShow === 'ClassList') {
       return null
     }
+    const cName = this.props.currentShow === 'Lyric' ? ' height15Rem' : ''
     return (
       <div className="PlayDetail">
-        <div className="container">
-          <ul className="lyric"  style={{top: this.state.lyricOffsetTop}}>
+        <div className={"container" + cName}>
+          <ul className="lyric" ref="lyric" style={{top: this.state.lyricOffsetTop}}>
             {lyricLiArr}
           </ul>
         </div>

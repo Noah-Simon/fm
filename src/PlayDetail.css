@@ -37,8 +37,21 @@
 
 .PlayDetail .lyric {
   position: relative;
+  transition: top 1s;
 }
 .PlayDetail .lyric li {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  min-height: 1.5rem;
+}
+
+.PlayDetail .lyric li.target {
   font-size: 1.2rem;
-  height: 1.5rem;
+  color: #3b59d8;
+  font-weight: bold;
+}
+
+.container.height15Rem  {
+  margin-top: 1rem;
+  height: 15rem;
 }
