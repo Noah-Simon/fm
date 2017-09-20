@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 
 import './PlayDetail.css'
 
-import formatTime from './utilis/formatTime.js'
+import formatTime from '../utils/formatTime.js'
+import handleLyric from '../utils/handleLyric.js'
 
 export default class PlayDetail extends Component {
   constructor(props) {
@@ -13,7 +14,6 @@ export default class PlayDetail extends Component {
       progressBarWidth: '10%',
       lyricOffsetTop: '-3rem',
     }
-    this.handleLyric = this.handleLyric.bind(this)
     this.slideLyric = this.slideLyric.bind(this)
   }
   
@@ -32,41 +32,8 @@ export default class PlayDetail extends Component {
     })
   }
 
-  handleLyric(lyric) {
-    var lyricLineArray = lyric.split('\n')
-    var timeStampPattern = /\[\d{2}:\d{2}.\d{2}\]/g
-    var time
-    var text
-    var tmpT
-    var tmpS
-    var objArr = []
-    for(var i=0, l=lyricLineArray.length; i<l; i++) {
-      var matchContent = lyricLineArray[i].match(timeStampPattern)
-      if(matchContent) {
-        //get the text of each line 
-        tmpT = lyricLineArray[i].split(/\[.+\]/g)
-        text = tmpT[tmpT.length-1] || '' 
-        //get the time
-        for(var j=0; j<matchContent.length; j++) {
-          tmpS = matchContent[j].substring(1, matchContent[j].length - 1).split(':')
-          time = (+tmpS[0]) * 60 + (+tmpS[1])
-          objArr.push({
-            'time': time,
-            'text': text,
-          })
-        }   
-      }
-    }
-  
-    objArr.sort(function(a, b){
-      return a.time-b.time
-    })
-    return objArr
-
-  }
-
   slideLyric() {
-    let arr = this.handleLyric(this.props.lyric)
+    let arr = handleLyric(this.props.lyric)
     const ulElmt =  this.refs.lyric === undefined ? undefined : this.refs.lyric.childNodes
     for (var i = 0, l = arr.length; i < l; i++) {
       let prevNum = i > 0 ? i - 1: i
@@ -83,7 +50,7 @@ export default class PlayDetail extends Component {
   }
 
   render() {
-    const lyricArr = this.handleLyric(this.props.lyric)
+    const lyricArr = handleLyric(this.props.lyric)
     const lyricLiArr = lyricArr.map((item, index) => {
       return <li key={'line' + index}>{item.text}</li>
     })
@@ -103,7 +70,7 @@ export default class PlayDetail extends Component {
           <span className="duration">{this.state.duration}</span>
         </div>
         <div className="durationBar"  ref= "durationBar" onClick={(e) => {
-          const w = e.nativeEvent.offsetX / parseInt(getComputedStyle(this.refs.durationBar).width)
+          const w = e.nativeEvent.offsetX / parseInt(getComputedStyle(this.refs.durationBar).width, 10)
           this.props.music.currentTime = w * this.props.music.duration
         }}>
           <div className="progressBar" style={{width: this.state.progressBarWidth}}></div>

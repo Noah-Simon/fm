@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import getUrl from './getUrl'
+import getUrl from '../utils/getUrl.js'
 import './App.css'
 
 import ClassList from './ClassList.js'
@@ -47,9 +47,9 @@ class App extends Component {
     const songInfo = (this.state.currentShow === 'MainInterface') ? 
      <SongInfo songInfo={this.state.currentSongInfo}/>
      : null
-    const playDetail = (this.state.currentShow === 'MainInterface' ) ?
-     <PlayDetail music={this.music}  lyric={this.state.lrc} /> 
-     : null   //为什么这样不行？
+    // const playDetail = (this.state.currentShow === 'MainInterface' ) ?
+    //  <PlayDetail music={this.music}  lyric={this.state.lrc} /> 
+    //  : null   为什么这样不行？
     const control = (this.state.currentShow !== 'ClassList') ? 
      <Control play={this.play} pause={this.pause} playNext={this.playNext} isPlaying={this.state.isPlaying} />
      : null
@@ -67,6 +67,9 @@ class App extends Component {
   }
 
   componentDidMount() {
+    /*1.获取分类列表
+      2.随机获取该分类下的一首歌
+    */
     this.getClassList().then((data) => {
       this.setState({
         currentChannelId: data[0].channel_id
@@ -75,6 +78,7 @@ class App extends Component {
     })
   }
   
+
   setCurrenShow(str) {
     this.setState(
       {currentShow: str}
@@ -99,6 +103,7 @@ class App extends Component {
   }
 
   setSongInfo(channelId) {
+    //每次设置当前歌曲信息后再获取歌词
     let p =  getUrl(SONGS_URL + channelId)
     p.then((data) => {
       this.setState({
