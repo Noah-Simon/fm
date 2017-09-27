@@ -42,8 +42,7 @@ class App extends Component {
     //  <PlayDetail music={this.music}  lyric={this.state.lrc} /> 
     //  : null   为什么这样不行？
     const control = (this.state.currentShow !== 'ClassList') ? 
-     <Control setSongInfoAndPlay={this.setSongInfoAndPlay}
-      currentChannelId={this.state.currentChannelId}
+     <Control setSongInfoAndPlay={() => {this.setSongInfoAndPlay(this.state.currentChannelId)}}
       music={this.music} />
      : null
 

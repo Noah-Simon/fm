@@ -7,10 +7,21 @@ export default class Header extends Component {
     super(props)
     this.setCurrentShow = this.setCurrentShow.bind(this)
   }
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('1should?')
+    if (nextProps.currentShow === this.props.currentShow &&
+        nextProps.currentShow !== 'Lyric') {
+      console.log('1no')
+      return false
+    }
+    console.log('1yes')
+    return true
+  }
   setCurrentShow(str) {
     this.props.onSetCurrentShow(str)
   }
   render() {
+    console.log('header rendered')
     const title = this.props.currentShow === 'MainInterface' ? '' : 
      <div className="title">{this.props.currentSongInfo.title}</div>
     const artist = this.props.currentShow === 'MainInterface' ? '' :

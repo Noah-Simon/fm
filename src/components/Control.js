@@ -53,13 +53,13 @@ export default class Control extends Component {
         this.play()
         return 
       }
-      this.props.setSongInfoAndPlay(this.props.currentChannelId)
+      this.props.setSongInfoAndPlay()
     })
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     console.log('should?')
-    if (nextState === this.state)  {
+    if (nextState === this.state) {
       console.log('no')
       return false
     }
@@ -85,7 +85,7 @@ export default class Control extends Component {
     })
   }
   playNext() {
-    this.props.setSongInfoAndPlay(this.props.currentChannelId)
+    this.props.setSongInfoAndPlay()
     this.setState({
       isPlaying: true
     })
