@@ -1,20 +1,54 @@
 .Control {
-  padding: 20px 0;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px .5em;
   color: #6e92e8;
   font-size: 1.5em;
+}
+.volume {
+  display: flex;
+  align-items: center;
+  width: 3em;
+  flex-shrink: 1;
+}
+.volume:hover .wholeBar {
+  display: block;
+}
+.wholeBar {
+  display: none;
+  height: 4px;
+  width: 1.5em;
+  background-color: #dee4f6;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.volumeBar {
+  height: 4px;
+  width: 70%;
+  background-image: linear-gradient(90deg, #6e92eb, #3b69d8);
+  border-radius: 3px;
 }
 
 .Control .icon-play, 
 .Control .icon-pause {
   color: #3b69d8;
   font-size: 2em;
-  margin: 0 1em;
+  margin: 0 0.5em;
+  align-self: center;
 }
 
 .Control span {
   opacity: .7;
 }
-
+.Control .icon-play-random,
+.Control .icon-single-cycle {
+  display: flex;
+  justify-content: flex-end;
+  width: 3em;
+  flex-shrink: 1;
+}
 .Control span:hover {
   cursor: pointer;
   opacity: 1.0

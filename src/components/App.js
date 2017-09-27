@@ -21,7 +21,8 @@ class App extends Component {
       currentChannelId: 0,
       isPlaying: false,
       currentShow: 'MainInterface',
-      lrc: ''
+      lrc: '',
+      isSingleCycle: false
     }
     this.music = new Audio()
     this.play = this.play.bind(this)
@@ -33,8 +34,14 @@ class App extends Component {
     this.playByList = this.playByList.bind(this)
     this.setCurrenShow = this.setCurrenShow.bind(this)
     this.setSonglrc = this.setSonglrc.bind(this)
+    this.toggleMode = this.toggleMode.bind(this)
 
     this.music.addEventListener('ended', () => {
+      console.log(this.music.volume)
+      if (this.state.isSingleCycle) {
+        this.music.play()
+        return 
+      }
       this.setSongInfo(this.state.currentChannelId)
     })
     
@@ -51,9 +58,9 @@ class App extends Component {
     //  <PlayDetail music={this.music}  lyric={this.state.lrc} /> 
     //  : null   为什么这样不行？
     const control = (this.state.currentShow !== 'ClassList') ? 
-     <Control play={this.play} pause={this.pause} playNext={this.playNext} isPlaying={this.state.isPlaying} />
+     <Control play={this.play} pause={this.pause} playNext={this.playNext} toggleMode={this.toggleMode}
+      isPlaying={this.state.isPlaying} isSingleCycle={this.state.isSingleCycle} music={this.music}/>
      : null
-
     return (
       <div className='App'>
         <Header currentShow={this.state.currentShow} onSetCurrentShow={this.setCurrenShow}
@@ -144,6 +151,11 @@ class App extends Component {
   }
   playNext() {
     this.setSongInfo(this.state.currentChannelId)
+  }
+  toggleMode() {
+    this.setState({
+      isSingleCycle: !this.state.isSingleCycle
+    })
   }
 }
 

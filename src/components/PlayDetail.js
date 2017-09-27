@@ -9,6 +9,7 @@ export default class PlayDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      // isSingle
       currentTime: 0,
       duration: 0,
       progressBarWidth: '10%',
