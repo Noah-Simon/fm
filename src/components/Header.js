@@ -10,7 +10,7 @@ export default class Header extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     console.log('1should?')
     if (nextProps.currentShow === this.props.currentShow &&
-        nextProps.currentShow !== 'Lyric') {
+        nextProps.currentShow === 'MainInterface') {
       console.log('1no')
       return false
     }
