@@ -19,32 +19,16 @@ class App extends Component {
       songsClassList : [],
       currentSongInfo : {},
       currentChannelId: 0,
-      isPlaying: false,
       currentShow: 'MainInterface',
-      lrc: '',
-      isSingleCycle: false
+      lrc: ''
     }
     this.music = new Audio()
-    this.play = this.play.bind(this)
-    this.pause = this.pause.bind(this)
-    this.setSongInfo = this.setSongInfo.bind(this)
+    window.music = this.music
+    this.setSongInfoAndPlay = this.setSongInfoAndPlay.bind(this)
     this.getClassList = this.getClassList.bind(this)
-    this.playNext = this.playNext.bind(this)
-    this.togglePlay = this.togglePlay.bind(this)
     this.playByList = this.playByList.bind(this)
     this.setCurrenShow = this.setCurrenShow.bind(this)
     this.setSonglrc = this.setSonglrc.bind(this)
-    this.toggleMode = this.toggleMode.bind(this)
-
-    this.music.addEventListener('ended', () => {
-      console.log(this.music.volume)
-      if (this.state.isSingleCycle) {
-        this.music.play()
-        return 
-      }
-      this.setSongInfo(this.state.currentChannelId)
-    })
-    
   }
 
   render() {
@@ -58,9 +42,11 @@ class App extends Component {
     //  <PlayDetail music={this.music}  lyric={this.state.lrc} /> 
     //  : null   为什么这样不行？
     const control = (this.state.currentShow !== 'ClassList') ? 
-     <Control play={this.play} pause={this.pause} playNext={this.playNext} toggleMode={this.toggleMode}
-      isPlaying={this.state.isPlaying} isSingleCycle={this.state.isSingleCycle} music={this.music}/>
+     <Control setSongInfoAndPlay={this.setSongInfoAndPlay}
+      currentChannelId={this.state.currentChannelId}
+      music={this.music} />
      : null
+
     return (
       <div className='App'>
         <Header currentShow={this.state.currentShow} onSetCurrentShow={this.setCurrenShow}
@@ -81,7 +67,7 @@ class App extends Component {
       this.setState({
         currentChannelId: data[0].channel_id
       })
-      this.setSongInfo(this.state.currentChannelId)
+      this.setSongInfoAndPlay(this.state.currentChannelId)
     })
   }
   
@@ -96,7 +82,7 @@ class App extends Component {
     this.setState({
       currentChannelId: channelId
     })
-    this.setSongInfo(channelId)
+    this.setSongInfoAndPlay(channelId)
   }
 
   getClassList() {
@@ -109,8 +95,8 @@ class App extends Component {
     })
   }
 
-  setSongInfo(channelId) {
-    //每次设置当前歌曲信息后再获取歌词
+  setSongInfoAndPlay(channelId) {
+    //每次设置当前歌曲信息并播放后再获取歌词
     let p =  getUrl(SONGS_URL + channelId)
     p.then((data) => {
       this.setState({
@@ -118,9 +104,6 @@ class App extends Component {
       })
       this.music.src = this.state.currentSongInfo.url
       this.music.play()
-      if (!this.state.isPlaying) {
-        this.togglePlay()
-      }
       return this.state.currentSongInfo.sid
     }).then((data) => {
       this.setSonglrc(data)
@@ -133,28 +116,6 @@ class App extends Component {
       this.setState({
         lrc: JSON.parse(data).lyric
       })
-    })
-  }
-
-  togglePlay() {
-    this.setState((prevState, props) => {
-      return {isPlaying: !prevState.isPlaying}
-    })
-  }
-  play() {
-    this.music.play()
-    this.togglePlay()
-  }
-  pause() {
-    this.music.pause()
-    this.togglePlay()
-  }
-  playNext() {
-    this.setSongInfo(this.state.currentChannelId)
-  }
-  toggleMode() {
-    this.setState({
-      isSingleCycle: !this.state.isSingleCycle
     })
   }
 }
