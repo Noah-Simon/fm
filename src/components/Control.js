@@ -18,13 +18,6 @@ export default class Control extends Component {
     this.toggleMode = this.toggleMode.bind(this)
   }
   componentDidMount() {
-     //a temporary method for fixing the bug
-    setTimeout(() => {
-      this.setState({
-        isPlaying: !this.props.music.paused
-      })
-    }, 2000);
-
     this.props.music.addEventListener('volumechange', () => {
       if (this.props.music.volume === 0) {
         this.setState({
@@ -54,6 +47,13 @@ export default class Control extends Component {
         return 
       }
       this.props.setSongInfoAndPlay()
+    })
+  }
+
+  //fixed the bug that the playing button's state does change first time
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      isPlaying: !nextProps.music.paused
     })
   }
 
